@@ -117,18 +117,27 @@ const landingToggle = async (req, res) => {
     const newData = JSON.parse(req.body?.newData) || null;
     if (req.files) {
       if (req.files?.hero_section_banners?.length > 0) {
-        let images = [];
-        let index = 0;
-        for (let i = 0; i < newData?.hero_section?.banners?.length; i++) {
-          const element = newData?.hero_section?.banners[i];
-          if (typeof element === "string") {
-            images.push(element);
-          } else if (typeof element === "object") {
-            index = index === 0 ? index : index + 1;
-            images.push(req.files?.hero_section_banners[index]?.path);
+        if (newData?.hero_section?.banners?.length > 0) {
+          let images = [];
+          let index = 0;
+          for (let i = 0; i < newData?.hero_section?.banners?.length; i++) {
+            const element = newData?.hero_section?.banners[i];
+            if (typeof element === "string") {
+              images.push(element);
+            } else if (typeof element === "object") {
+              index = index === 0 ? index : index + 1;
+              images.push(req.files?.hero_section_banners[index]?.path);
+            }
           }
+          newData["hero_section"]["banners"] = images;
+        } else {
+          let banners = [];
+          for (let i = 0; i < req.files?.hero_section_banners?.length; i++) {
+            const element = req.files?.hero_section_banners[i]?.path;
+            banners.push(element);
+          }
+          newData["hero_section"]["banners"] = banners;
         }
-        newData["hero_section"]["banners"] = images;
       }
       if (req.files?.boost_creativity_image) {
         newData["boost_creativity"]["image"] =
@@ -213,15 +222,16 @@ const landingToggle = async (req, res) => {
           req.files?.work_process_icon_4[0]?.path;
       }
     }
+    console.log(newData);
     if (isExist) {
-      const result = await Landing.updateOne({}, req.body, { new: true });
+      const result = await Landing.updateOne({}, newData, { new: true });
       res.status(200).json({
         success: true,
         message: "Data Update Success!",
         data: result,
       });
     } else {
-      const newData = new Landing(req.body);
+      const newData = new Landing(newData);
       const result = await newData.save();
       res.status(200).json({
         success: true,

@@ -7,7 +7,7 @@ const landingSchema = new Schema(
       heading: String,
       sub_heading: String,
       heading_summary: String,
-      lets_talk_now: String,
+      button_title: String,
       banners: [String],
       required: false,
     },
