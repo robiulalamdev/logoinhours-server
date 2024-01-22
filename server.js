@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 8000;
 const path = require("path");
 
 // routes
+const landingRoutes = require("./modules/landing/landing.route");
 
 const app = express();
 const http = require("http");
@@ -20,6 +21,7 @@ app.use(
 connectDB();
 
 // routes
+app.use("/api/v1/landing", landingRoutes);
 
 // static file serving
 app.use("/api/v1/uploads", express.static(path.join(__dirname, "/")));

@@ -16,13 +16,7 @@ const landingSchema = new Schema(
       sub_heading: String,
       heading: String,
       heading_summary: String,
-      cards: {
-        type: [Object],
-        icon: String,
-        title: String,
-        summary: String,
-        button_title: String,
-      },
+      button_title: String,
       required: false,
     },
     boost_creativity: {
@@ -31,7 +25,7 @@ const landingSchema = new Schema(
       heading: String,
       heading_summary: String,
       button_title: String,
-      images: [String],
+      image: String,
       required: false,
     },
     stand_out: {
@@ -44,15 +38,34 @@ const landingSchema = new Schema(
       solutions: Number,
       button_title: String,
       call_for_help: String,
-      cards: {
-        type: [Object],
+      card_1: {
+        type: Object,
+        icon: String,
+        title: String,
+      },
+      card_2: {
+        type: Object,
+        icon: String,
+        title: String,
+      },
+      card_3: {
+        type: Object,
+        icon: String,
+        title: String,
+      },
+      card_4: {
+        type: Object,
         icon: String,
         title: String,
       },
       required: false,
     },
     companies: {
-      type: [String],
+      type: Object,
+      image_1: String,
+      image_2: String,
+      image_3: String,
+      image_4: String,
       required: false,
     },
     appointment: {
@@ -69,12 +82,30 @@ const landingSchema = new Schema(
       sub_heading: String,
       heading: String,
       heading_summary: String,
-      cards: {
+      button_title: String,
+      solution_1: {
         type: [Object],
         icon: String,
         title: String,
         summary: String,
-        button_title: String,
+      },
+      solution_2: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
+      },
+      solution_3: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
+      },
+      solution_4: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
       },
       required: false,
     },
@@ -83,15 +114,15 @@ const landingSchema = new Schema(
       sub_heading: String,
       heading: String,
       heading_summary: String,
+      button_title: String,
       cards: {
         type: [Object],
         title: String,
         summary: String,
-        button_title: String,
       },
       required: false,
     },
-    complete_services: {
+    complete_projects: {
       type: Object,
       sub_heading: String,
       heading: String,
@@ -103,7 +134,25 @@ const landingSchema = new Schema(
       sub_heading: String,
       heading: String,
       heading_summary: String,
-      cards: {
+      process_1: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
+      },
+      process_2: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
+      },
+      process_3: {
+        type: [Object],
+        icon: String,
+        title: String,
+        summary: String,
+      },
+      process_4: {
         type: [Object],
         icon: String,
         title: String,
