@@ -231,8 +231,8 @@ const landingToggle = async (req, res) => {
         data: result,
       });
     } else {
-      const newData = new Landing(newData);
-      const result = await newData.save();
+      const newValues = new Landing(newData);
+      const result = await newValues.save();
       res.status(200).json({
         success: true,
         message: "Data Save Success",

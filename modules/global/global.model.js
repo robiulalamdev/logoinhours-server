@@ -4,7 +4,19 @@ const globalSchema = new Schema(
   {
     logo: {
       type: String,
-      required: true,
+      required: false,
+    },
+    contact_header: {
+      type: Object,
+      email: String,
+      phone: String,
+      address: String,
+      schedule: String,
+      facebook: String,
+      twitter: String,
+      instagram: String,
+      linkedin: String,
+      required: false,
     },
     colors: {
       type: Object,
