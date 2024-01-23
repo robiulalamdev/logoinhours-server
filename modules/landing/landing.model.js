@@ -115,7 +115,22 @@ const landingSchema = new Schema(
       heading: String,
       heading_summary: String,
       button_title: String,
-      cards: {
+      card_1: {
+        type: [Object],
+        title: String,
+        summary: String,
+      },
+      card_2: {
+        type: [Object],
+        title: String,
+        summary: String,
+      },
+      card_3: {
+        type: [Object],
+        title: String,
+        summary: String,
+      },
+      card_4: {
         type: [Object],
         title: String,
         summary: String,

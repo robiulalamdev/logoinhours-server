@@ -222,7 +222,7 @@ const landingToggle = async (req, res) => {
           req.files?.work_process_icon_4[0]?.path;
       }
     }
-    console.log(newData);
+    // console.log(newData);
     if (isExist) {
       const result = await Landing.updateOne({}, newData, { new: true });
       res.status(200).json({
