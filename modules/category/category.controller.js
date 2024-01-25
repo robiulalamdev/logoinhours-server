@@ -74,9 +74,15 @@ const getCategories = async (req, res) => {
 
 const updateCategory = async (req, res) => {
   try {
-    const isExist = await Category.findOne();
+    const newData = req.body;
+    if (req.file) {
+      newData["image"] = req.file?.path;
+    }
+    const isExist = await Category.findOne({ _id: req.params.id });
     if (isExist) {
-      const result = await Category.updateOne({}, req.body, { new: true });
+      const result = await Category.updateOne({ _id: req.params.id }, newData, {
+        new: true,
+      });
       res.status(200).json({
         success: true,
         message: "Data Update Success!",

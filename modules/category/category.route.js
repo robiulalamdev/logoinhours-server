@@ -4,6 +4,7 @@ const {
   getCategories,
   getCategory,
   deleteCategory,
+  updateCategory,
 } = require("./category.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 const router = express.Router();
@@ -16,6 +17,7 @@ router.post(
 );
 router.get("/", getCategories);
 router.get("/:id", getCategory);
+router.patch("/:id", upload.single("image"), handleMulterError, updateCategory);
 router.delete("/:id", deleteCategory);
 
 module.exports = router;

@@ -8,6 +8,7 @@ const path = require("path");
 const landingRoutes = require("./modules/landing/landing.route");
 const globalRoutes = require("./modules/global/global.route");
 const categoryRoutes = require("./modules/category/category.route");
+const reviewRoutes = require("./modules/review/review.route");
 
 const app = express();
 const http = require("http");
@@ -26,6 +27,7 @@ connectDB();
 app.use("/api/v1/landing", landingRoutes);
 app.use("/api/v1/global", globalRoutes);
 app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
 
 // static file serving
 app.use("/api/v1/uploads", express.static(path.join(__dirname, "/")));

@@ -8,20 +8,16 @@ const reviewsSchema = new Schema(
     message: {
       type: String,
     },
-    author: {
-      type: Object,
-      image: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      company_name: {
-        type: String,
-        required: true,
-      },
+    image: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    company: {
+      type: String,
       required: true,
     },
   },
