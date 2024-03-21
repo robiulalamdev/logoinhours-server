@@ -6,7 +6,8 @@ const path = require("path");
 
 // routes
 const landingRoutes = require("./modules/landing/landing.route");
-const spRoutes = require("./modules/subPage/sp.route");
+const pageRoutes = require("./modules/pages/page/page.route");
+const spRoutes = require("./modules/pages/subPage/sp.route");
 const globalRoutes = require("./modules/global/global.route");
 const categoryRoutes = require("./modules/category/category.route");
 const reviewRoutes = require("./modules/review/review.route");
@@ -25,9 +26,12 @@ app.use(
 connectDB();
 
 // routes
-app.use("/api/v1/landing", landingRoutes);
-app.use("/api/v1/sp", spRoutes);
 app.use("/api/v1/global", globalRoutes);
+app.use("/api/v1/landing", landingRoutes);
+
+app.use("/api/v1/pages", pageRoutes);
+app.use("/api/v1/sp", spRoutes);
+
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 

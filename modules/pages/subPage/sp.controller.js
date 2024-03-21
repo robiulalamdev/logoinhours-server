@@ -1,3 +1,4 @@
+const { subPageData } = require("../../../utils/data");
 const SP = require("./sp.model");
 const { generateSpSlug } = require("./sp.service");
 
@@ -111,13 +112,13 @@ const createSP = async (req, res) => {
     });
   }
 };
+
 const sPInitialize = async (req, res) => {
   try {
     const slug = await generateSpSlug(req.body.name);
-    console.log(slug);
     if (slug) {
       req.body["slug"] = slug;
-      const newData = new SP(req.body);
+      const newData = new SP({ ...req.body, ...subPageData });
       const result = await newData.save();
       res.status(200).json({
         success: true,
@@ -144,29 +145,29 @@ const spToggle = async (req, res) => {
     const isExist = await SP.findOne({ _id: req.params.id });
     const newData = JSON.parse(req.body?.newData) || null;
     if (req.files) {
-      if (req.files?.hero_section_banners?.length > 0) {
-        if (newData?.hero_section?.banners?.length > 0) {
-          let images = [];
-          let index = 0;
-          for (let i = 0; i < newData?.hero_section?.banners?.length; i++) {
-            const element = newData?.hero_section?.banners[i];
-            if (typeof element === "string") {
-              images.push(element);
-            } else if (typeof element === "object") {
-              index = index === 0 ? index : index + 1;
-              images.push(req.files?.hero_section_banners[index]?.path);
-            }
-          }
-          newData["hero_section"]["banners"] = images;
-        } else {
-          let banners = [];
-          for (let i = 0; i < req.files?.hero_section_banners?.length; i++) {
-            const element = req.files?.hero_section_banners[i]?.path;
-            banners.push(element);
-          }
-          newData["hero_section"]["banners"] = banners;
-        }
-      }
+      // if (req.files?.hero_section_banners?.length > 0) {
+      //   if (newData?.hero_section?.banners?.length > 0) {
+      //     let images = [];
+      //     let index = 0;
+      //     for (let i = 0; i < newData?.hero_section?.banners?.length; i++) {
+      //       const element = newData?.hero_section?.banners[i];
+      //       if (typeof element === "string") {
+      //         images.push(element);
+      //       } else if (typeof element === "object") {
+      //         index = index === 0 ? index : index + 1;
+      //         images.push(req.files?.hero_section_banners[index]?.path);
+      //       }
+      //     }
+      //     newData["hero_section"]["banners"] = images;
+      //   } else {
+      //     let banners = [];
+      //     for (let i = 0; i < req.files?.hero_section_banners?.length; i++) {
+      //       const element = req.files?.hero_section_banners[i]?.path;
+      //       banners.push(element);
+      //     }
+      //     newData["hero_section"]["banners"] = banners;
+      //   }
+      // }
       if (req.files?.boost_creativity_image) {
         newData["boost_creativity"]["image"] =
           req.files?.boost_creativity_image[0]?.path;
@@ -205,14 +206,14 @@ const spToggle = async (req, res) => {
       }
 
       // appointment section
-      if (req.files?.appointment_bg_image) {
-        newData["appointment"]["bg_image"] =
-          req.files?.appointment_bg_image[0]?.path;
-      }
-      if (req.files?.appointment_bg_form_image) {
-        newData["appointment"]["bg_form_image"] =
-          req.files?.appointment_bg_form_image[0]?.path;
-      }
+      // if (req.files?.appointment_bg_image) {
+      //   newData["appointment"]["bg_image"] =
+      //     req.files?.appointment_bg_image[0]?.path;
+      // }
+      // if (req.files?.appointment_bg_form_image) {
+      //   newData["appointment"]["bg_form_image"] =
+      //     req.files?.appointment_bg_form_image[0]?.path;
+      // }
 
       // it solutions section
       if (req.files?.it_solution_icon_1) {
@@ -349,12 +350,40 @@ const getAllSp = async (req, res) => {
     });
   }
 };
+const getSubPagesByPageId = async (req, res) => {
+  try {
+    const result = await SP.find({ page: req.params.pageId })
+      .sort({ _id: -1 })
+      .select("name slug");
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: "Data Retrieve Success!",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: true,
+        message: "Data Not Found",
+        data: result,
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Data Retrieve Failed!",
+      error_message: error?.message,
+    });
+  }
+};
 
 const updateSp = async (req, res) => {
   try {
-    const isExist = await SP.findOne();
+    const isExist = await SP.findOne({ _id: req.params.id });
     if (isExist) {
-      const result = await SP.updateOne({}, req.body, { new: true });
+      const result = await SP.updateOne({ _id: req.params.id }, req.body, {
+        new: true,
+      });
       res.status(200).json({
         success: true,
         message: "Data Update Success!",
@@ -411,4 +440,5 @@ module.exports = {
   getAllSp,
   updateSp,
   deleteSp,
+  getSubPagesByPageId,
 };
