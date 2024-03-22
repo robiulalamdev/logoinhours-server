@@ -4,6 +4,7 @@ const {
   getLanding,
   updateLanding,
   landingToggle,
+  updateLandingSectionStatus,
 } = require("./landing.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 const router = express.Router();
@@ -48,7 +49,8 @@ router.post(
   landingToggle
 );
 router.get("/", getLanding);
-router.patch("/", updateLanding);
+router.patch("/:id", updateLanding);
+router.patch("/section-status/:id", updateLandingSectionStatus);
 // router.delete("/", )
 
 module.exports = router;

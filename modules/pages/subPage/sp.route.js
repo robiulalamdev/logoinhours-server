@@ -10,6 +10,7 @@ const {
   deleteSp,
   getSpBySlug,
   getSubPagesByPageId,
+  updateSubPageStatus,
 } = require("./sp.controller");
 const router = express.Router();
 
@@ -58,6 +59,7 @@ router.get("/sub-pages/:pageId", getSubPagesByPageId);
 router.get("/single/:slug", getSpBySlug);
 router.get("/", getAllSp);
 router.patch("/:id", updateSp);
+router.patch("/status/:id", updateSubPageStatus);
 router.delete("/:id", deleteSp);
 // router.delete("/", )
 

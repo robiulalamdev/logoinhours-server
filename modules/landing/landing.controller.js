@@ -298,9 +298,43 @@ const updateLanding = async (req, res) => {
   }
 };
 
+const updateLandingSectionStatus = async (req, res) => {
+  console.log(req.params);
+  try {
+    const isExist = await Landing.findOne({ _id: req.params.id });
+    if (isExist) {
+      const result = await Landing.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      res.status(200).json({
+        success: true,
+        message: "Data Update Success!",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: true,
+        message: "Data Not Found",
+        data: result,
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Data Update Failed!",
+      error_message: error?.message,
+    });
+  }
+};
+
 module.exports = {
   createLanding,
   landingToggle,
   getLanding,
   updateLanding,
+  updateLandingSectionStatus,
 };

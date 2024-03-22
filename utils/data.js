@@ -20,9 +20,9 @@ const subPageData = {
     sub_heading: "Stand Out Sub Heading",
     heading: "Stand Out Heading",
     heading_summary: "Summary of Stand Out",
-    analytics: 1000,
-    development: 500,
-    solutions: 800,
+    analytics: 50,
+    development: 80,
+    solutions: 35,
     button_title: "Explore",
     call_for_help: "For assistance, call +123456789",
     card_1: {

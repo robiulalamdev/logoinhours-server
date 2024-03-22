@@ -9,6 +9,11 @@ const landingSchema = new Schema(
       heading_summary: String,
       button_title: String,
       banners: [String],
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     professional_it_services: {
@@ -17,6 +22,11 @@ const landingSchema = new Schema(
       heading: String,
       heading_summary: String,
       button_title: String,
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     boost_creativity: {
@@ -26,6 +36,11 @@ const landingSchema = new Schema(
       heading_summary: String,
       button_title: String,
       image: String,
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     stand_out: {
@@ -58,6 +73,11 @@ const landingSchema = new Schema(
         icon: String,
         title: String,
       },
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     companies: {
@@ -66,6 +86,11 @@ const landingSchema = new Schema(
       image_2: String,
       image_3: String,
       image_4: String,
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     appointment: {
@@ -75,6 +100,11 @@ const landingSchema = new Schema(
       heading_summary: String,
       bg_image: String,
       bg_form_image: String,
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
       required: false,
     },
     it_solutions: {
@@ -106,6 +136,11 @@ const landingSchema = new Schema(
         icon: String,
         title: String,
         summary: String,
+      },
+      status: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
       },
       required: false,
     },

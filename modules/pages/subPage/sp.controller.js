@@ -431,6 +431,38 @@ const deleteSp = async (req, res) => {
   }
 };
 
+const updateSubPageStatus = async (req, res) => {
+  try {
+    const isExist = await SP.findOne({ _id: req.params.id });
+    if (isExist) {
+      const result = await SP.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      res.status(200).json({
+        success: true,
+        message: "Data Delete Success!",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: true,
+        message: "Data Not Found",
+        data: result,
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Data Delete Failed!",
+      error_message: error?.message,
+    });
+  }
+};
+
 module.exports = {
   createSP,
   sPInitialize,
@@ -441,4 +473,5 @@ module.exports = {
   updateSp,
   deleteSp,
   getSubPagesByPageId,
+  updateSubPageStatus,
 };
